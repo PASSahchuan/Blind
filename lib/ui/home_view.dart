@@ -40,7 +40,7 @@ class _HomeViewState extends State<HomeView> {
           Align(
             alignment: Alignment.topLeft,
             child: Container(
-              padding: EdgeInsets.only(top: 20),
+              padding: EdgeInsets.fromLTRB(20.0, 30.0, 30.0, 30.0),
               child: Text(
                 'Blind',
                 textAlign: TextAlign.left,
@@ -62,30 +62,35 @@ class _HomeViewState extends State<HomeView> {
               maxChildSize: 0.5,
               builder: (_, ScrollController scrollController) => Container(
                 width: double.maxFinite,
+                margin: const EdgeInsets.only(top: 50.0),
                 decoration: BoxDecoration(
+                    // shape: BoxShape.circle,
+                    // 沒有狀態
                     color: Colors.white.withOpacity(0.9),
                     // 不能過
-                    // color: Colors.red,
+                    // color: Colors.red.withOpacity(0.9),
                     // 可以過
-                    // color: Colors.green,
-                    // 快點過
-                    // color: Colors.yellow,
+                    // color: Colors.green.withOpacity(0.9),
+                    // 趕快過
+                    // color: Colors.yellowAccent.withOpacity(0.9),
                     borderRadius: BORDER_RADIUS_BOTTOM_SHEET),
-                child: SingleChildScrollView(
-                  controller: scrollController,
+                child: Container(
+                  // controller: scrollController,
                   child: Center(
                     child: Column(
                       mainAxisSize: MainAxisSize.min,
                       children: [
+                        // Icon(Icons.keyboard_arrow_up,
+                        //     size: 48, color: Colors.orange),
                         (stats != null)
                             ? Padding(
-                                padding: const EdgeInsets.all(8.0),
+                                padding: const EdgeInsets.all(45.0),
                                 child: Column(
                                   children: [
                                     StatsRow(
                                         '目前燈號：', '${stats.inferenceTime} ms'),
-                                    StatsRow('剩餘秒數：',
-                                        '${stats.totalElapsedTime} ms'),
+                                    StatsRow(
+                                        '剩餘秒數：', '${stats.inferenceTime} ms'),
                                     // StatsRow('Inference time:',
                                     //     '${stats.inferenceTime} ms'),
                                     // StatsRow('Total prediction time:',
