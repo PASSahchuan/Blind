@@ -6,6 +6,8 @@ import 'package:image/image.dart' as imageLib;
 import 'package:object_detection/tflite/recognition.dart';
 import 'package:tflite_flutter/tflite_flutter.dart';
 import 'package:tflite_flutter_helper/tflite_flutter_helper.dart';
+import 'package:color_thief_flutter/color_thief_flutter.dart';
+import 'package:color_thief_flutter/utils.dart';
 
 import 'stats.dart';
 

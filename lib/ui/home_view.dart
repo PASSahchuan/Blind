@@ -8,6 +8,9 @@ import 'package:object_detection/ui/camera_view_singleton.dart';
 import 'camera_view.dart';
 
 /// [HomeView] stacks [CameraView] and [BoxWidget]s with bottom sheet for stats
+
+var pointHeight;
+
 class HomeView extends StatefulWidget {
   @override
   _HomeViewState createState() => _HomeViewState();
@@ -25,6 +28,8 @@ class _HomeViewState extends State<HomeView> {
 
   @override
   Widget build(BuildContext context) {
+    double deviceWidth = MediaQuery.of(context).size.width;
+    double deviceHeight = MediaQuery.of(context).size.height;
     return Scaffold(
       key: scaffoldKey,
       backgroundColor: Colors.black,
@@ -54,62 +59,64 @@ class _HomeViewState extends State<HomeView> {
           ),
 
           // Bottom Sheet
+
           Align(
+            //   alignment: Alignment.bottomCenter,
+            // ClipPath(
+            //   clipper: MyClipper(),
+            // child: Align(
             alignment: Alignment.bottomCenter,
-            child: DraggableScrollableSheet(
-              initialChildSize: 0.4,
-              minChildSize: 0.1,
-              maxChildSize: 0.5,
-              builder: (_, ScrollController scrollController) => Container(
-                width: double.maxFinite,
-                margin: const EdgeInsets.only(top: 50.0),
-                decoration: BoxDecoration(
-                    // shape: BoxShape.circle,
-                    // 沒有狀態
-                    color: Colors.white.withOpacity(0.9),
-                    // 不能過
-                    // color: Colors.red.withOpacity(0.9),
-                    // 可以過
-                    // color: Colors.green.withOpacity(0.9),
-                    // 趕快過
-                    // color: Colors.yellowAccent.withOpacity(0.9),
-                    borderRadius: BORDER_RADIUS_BOTTOM_SHEET),
-                child: Container(
-                  // controller: scrollController,
-                  child: Center(
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        // Icon(Icons.keyboard_arrow_up,
-                        //     size: 48, color: Colors.orange),
-                        (stats != null)
-                            ? Padding(
-                                padding: const EdgeInsets.all(45.0),
-                                child: Column(
-                                  children: [
-                                    StatsRow(
-                                        '目前燈號：', '${stats.inferenceTime} ms'),
-                                    StatsRow(
-                                        '剩餘秒數：', '${stats.inferenceTime} ms'),
-                                    // StatsRow('Inference time:',
-                                    //     '${stats.inferenceTime} ms'),
-                                    // StatsRow('Total prediction time:',
-                                    //     '${stats.totalElapsedTime} ms'),
-                                    // StatsRow('Pre-processing time:',
-                                    //     '${stats.preProcessingTime} ms'),
-                                    // StatsRow('Frame',
-                                    //     '${CameraViewSingleton.inputImageSize?.width} X ${CameraViewSingleton.inputImageSize?.height}'),
-                                  ],
-                                ),
-                              )
-                            : Container()
-                      ],
-                    ),
+            child: Container(
+              width: double.infinity,
+              height: deviceHeight / 3,
+              // margin: const EdgeInsets.only(top: 100.0),
+              decoration: BoxDecoration(
+                  // shape: BoxShape.circle,
+                  // 沒有狀態
+                  color: Colors.white.withOpacity(0.9),
+                  // 不能過
+                  // color: Colors.red.withOpacity(0.9),
+                  // 可以過
+                  // color: Colors.green.withOpacity(0.9),
+                  // 趕快過
+                  // color: Colors.yellowAccent.withOpacity(0.9),
+                  borderRadius: BORDER_RADIUS_BOTTOM_SHEET),
+              child: Container(
+                // controller: scrollController,
+                child: Center(
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      // Icon(Icons.keyboard_arrow_up,
+                      //     size: 48, color: Colors.orange),
+                      (stats != null)
+                          ? Padding(
+                              padding: const EdgeInsets.all(45.0),
+                              child: Column(
+                                children: [
+                                  StatsRow(
+                                      '目前燈號：', '${stats.inferenceTime} ms'),
+                                  StatsRow(
+                                      '剩餘秒數：', '${stats.inferenceTime} ms'),
+                                  // StatsRow('Inference time:',
+                                  //     '${stats.inferenceTime} ms'),
+                                  // StatsRow('Total prediction time:',
+                                  //     '${stats.totalElapsedTime} ms'),
+                                  // StatsRow('Pre-processing time:',
+                                  //     '${stats.preProcessingTime} ms'),
+                                  // StatsRow('Frame',
+                                  //     '${CameraViewSingleton.inputImageSize?.width} X ${CameraViewSingleton.inputImageSize?.height}'),
+                                ],
+                              ),
+                            )
+                          : Container()
+                    ],
                   ),
                 ),
               ),
             ),
-          )
+          ),
+          // ),
         ],
       ),
     );
@@ -143,7 +150,7 @@ class _HomeViewState extends State<HomeView> {
     });
   }
 
-  static const BOTTOM_SHEET_RADIUS = Radius.circular(24.0);
+  static const BOTTOM_SHEET_RADIUS = Radius.circular(38.0);
   static const BORDER_RADIUS_BOTTOM_SHEET = BorderRadius.only(
       topLeft: BOTTOM_SHEET_RADIUS, topRight: BOTTOM_SHEET_RADIUS);
 }
@@ -166,3 +173,21 @@ class StatsRow extends StatelessWidget {
     );
   }
 }
+
+// class MyClipper extends CustomClipper<Path> {
+//   @override
+//   Path getClip(Size size) {
+//     var path = Path();
+//     path.moveTo(0, 0);
+//     path.quadraticBezierTo(size.width / 2, size.height / 5, size.width, 0);
+//     // path.lineTo(0, size.height - 80);
+//     // path.quadraticBezierTo(
+//     //     size.width / 2, size.height, size.width, size.height - 80);
+//     // path.lineTo(size.width, 0);
+//     path.close();
+//     return path;
+//   }
+
+//   @override
+//   bool shouldReclip(CustomClipper<Path> oldClipper) => false;
+// }
